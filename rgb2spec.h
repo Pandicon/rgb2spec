@@ -43,10 +43,10 @@ void rgb2spec_fetch(RGB2Spec *model, float rgb[3], float out[RGB2SPEC_N_COEFFS])
 void rgb2spec_fetch_opt(RGB2Spec *model, float rgb[3], float out[RGB2SPEC_N_COEFFS]);
 
 /// Evaluate the model for a given wavelength
-float rgb2spec_eval_precise(float coeff[RGB2SPEC_N_COEFFS], float lambda);
+float rgb2spec_eval_precise(const float coeff[RGB2SPEC_N_COEFFS], float lambda);
 
 /// Evaluate the model for a given wavelength (fast, with recip. square root)
-float rgb2spec_eval_fast(float coeff[RGB2SPEC_N_COEFFS], float lambda);
+float rgb2spec_eval_fast(const float coeff[RGB2SPEC_N_COEFFS], float lambda);
 
 #if RGB2SPEC_HAS_X86_INTRINSICS && defined(__SSE4_2__)
     /// SSE 4.2 version -- evaluates 4 wavelengths at once

@@ -395,13 +395,13 @@ static inline float rgb2spec_fma(float a, float b, float c) {
     #endif
 }
 
-float rgb2spec_eval_precise(float coeff[RGB2SPEC_N_COEFFS], float lambda) {
+float rgb2spec_eval_precise(const float coeff[RGB2SPEC_N_COEFFS], float lambda) {
     float x = rgb2spec_fma(rgb2spec_fma(coeff[0], lambda, coeff[1]), lambda, coeff[2]),
           y = 1.f / sqrtf(rgb2spec_fma(x, x, 1.f));
     return rgb2spec_fma(.5f * x, y, .5f);
 }
 
-float rgb2spec_eval_fast(float coeff[RGB2SPEC_N_COEFFS], float lambda) {
+float rgb2spec_eval_fast(const float coeff[RGB2SPEC_N_COEFFS], float lambda) {
     float x = rgb2spec_fma(rgb2spec_fma(coeff[0], lambda, coeff[1]), lambda, coeff[2]),
 #if RGB2SPEC_HAS_X86_INTRINSICS && (defined(__SSE__) || defined(__x86_64__) || defined(_M_X64) || (defined(_M_IX86_FP) && _M_IX86_FP >= 1))
           y = _mm_cvtss_f32(_mm_rsqrt_ss(_mm_set_ss(rgb2spec_fma(x, x, 1.f))));
